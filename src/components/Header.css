@@ -1,0 +1,104 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--color-bg-cream);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.nav-group {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    flex: 1;
+    /* Both sides take equal space */
+}
+
+.nav-group.left {
+    justify-content: flex-start;
+}
+
+.nav-group.right {
+    justify-content: flex-end;
+}
+
+.nav-link {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-text-main);
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--color-primary);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.logo-container {
+    /* flex-grow: 1; Removed flex-grow to avoid off-centering */
+    text-align: center;
+    padding: 0 1rem;
+}
+
+.logo-img {
+    height: 90px;
+    /* Adjust based on logo proportions */
+    width: auto;
+    display: block;
+    margin: 0 auto;
+    mix-blend-mode: multiply;
+    /* Makes white background disappear */
+}
+
+.btn-consult {
+    background-color: var(--color-secondary);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.btn-consult:hover {
+    background-color: #C5A028;
+    /* Slightly darker gold */
+    transform: translateY(-2px);
+}
+
+@media (max-width: 900px) {
+    .header {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .nav-group {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .logo-container {
+        order: -1;
+        margin-bottom: 0.5rem;
+    }
+}
