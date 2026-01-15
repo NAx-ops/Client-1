@@ -17,8 +17,7 @@ const Hero = () => {
                 </p>
 
                 <div className="hero-buttons">
-                    <button className="btn btn-primary">View the Signature Collection</button>
-                    <button className="btn btn-secondary">Inquire for Custom Work</button>
+                    <a href="#shop" className="btn btn-primary">View Shop Collections</a>
                 </div>
             </div>
         </section>

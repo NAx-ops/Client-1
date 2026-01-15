@@ -7,29 +7,28 @@ const SocialProof = () => {
             <div className="testimonial-container">
                 <div className="testimonial-star">★★★★★</div>
                 <p className="testimonial-text">
-                    "I wanted my wedding bouquet to be a keepsake. Ylana created a masterpiece
-                    that sits in my living room today, looking just as perfect as the day I walked down the aisle."
+                    "Perfect gift for my girlfriend."
                 </p>
-                <p className="testimonial-author">— Sarah M., Arlington, VA</p>
+                <p className="testimonial-author">— Kevin A., Bowie, MD</p>
             </div>
 
             <div className="as-seen-banner">
-                <p className="banner-title">As Seen In</p>
+                <p className="banner-title">Perfect</p>
                 <div className="scrolling-wrapper">
                     {/* Double the track for seamless loop */}
                     <div className="logo-track">
-                        <span className="logo-item">Washingtonian Weddings</span>
-                        <span className="logo-item">The Knot</span>
-                        <span className="logo-item">District Brides</span>
-                        <span className="logo-item">Style Me Pretty</span>
-                        <span className="logo-item">Vogue Living</span>
+                        <span className="logo-item">Romantic gifts</span>
+                        <span className="logo-item">Room Decor</span>
+                        <span className="logo-item">Offices</span>
+                        <span className="logo-item">Instagram Accessory</span>
+                        <span className="logo-item">Hypoallergenic environment</span>
 
                         {/* Duplicate */}
-                        <span className="logo-item">Washingtonian Weddings</span>
-                        <span className="logo-item">The Knot</span>
-                        <span className="logo-item">District Brides</span>
-                        <span className="logo-item">Style Me Pretty</span>
-                        <span className="logo-item">Vogue Living</span>
+                        <span className="logo-item">Romantic gifts</span>
+                        <span className="logo-item">Room Decor</span>
+                        <span className="logo-item">Offices</span>
+                        <span className="logo-item">Instagram Accessory</span>
+                        <span className="logo-item">Hypoallergenic environment</span>
                     </div>
                 </div>
             </div>

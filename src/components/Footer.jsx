@@ -12,18 +12,13 @@ const Footer = () => {
 
                 <div className="footer-col" style={{ textAlign: 'center' }}>
                     <div className="social-links">
-                        <a href="#insta" className="social-link">Instagram</a>
-                        <a href="#pin" className="social-link">Pinterest</a>
-                        <a href="#tiktok" className="social-link">TikTok</a>
+                        <a href="https://www.instagram.com/lushcreationsby_ylana/#" target="_blank" rel="noopener noreferrer" className="social-link">Instagram</a>
+                        <a href="https://www.pinterest.com/lushcreationsbyylana/" target="_blank" rel="noopener noreferrer" className="social-link">Pinterest</a>
                     </div>
                 </div>
 
-                <div className="footer-col">
-                    <h4 className="newsletter-title">The Bloom Report</h4>
-                    <form className="newsletter-form" onSubmit={(e) => e.preventDefault()}>
-                        <input type="email" placeholder="Email Address" className="newsletter-input" />
-                        <button className="newsletter-btn">→</button>
-                    </form>
+                <div className="footer-col" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+                    {/* Newsletter removed */}
                 </div>
             </div>
         </footer>
