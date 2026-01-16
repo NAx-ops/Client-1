@@ -204,3 +204,21 @@
         padding: 1rem;
     }
 }
+
+/* Desktop Re-ordering to match original design */
+@media (min-width: 901px) {
+    .logo-container {
+        order: 2;
+        /* Logo in the middle */
+    }
+
+    .nav-group.left {
+        order: 1;
+        /* Left nav first */
+    }
+
+    .nav-group.right {
+        order: 3;
+        /* Right nav last */
+    }
+}
