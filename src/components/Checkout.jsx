@@ -15,6 +15,8 @@ const Checkout = ({ isOpen, onClose }) => {
         paymentMethod: 'Zelle'
     });
 
+    const googleFormRef = React.useRef(null);
+
     if (!isOpen) return null;
 
     const handleInputChange = (e) => {
@@ -24,16 +26,119 @@ const Checkout = ({ isOpen, onClose }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Simulate API call
+
+        // Submit the hidden Google Form
+        if (googleFormRef.current) {
+            googleFormRef.current.submit();
+        }
+
         console.log("Order Placed:", { items: cartItems, total: cartTotal, customer: formData });
         setStep(2);
-        clearCart();
+        // Do NOT clear cart yet to ensure form inputs persist for submission
+    };
+
+    const handleClose = () => {
+        if (step === 2) {
+            clearCart();
+        }
+        onClose();
+        // Reset step after closing (optional, but good practice if modal stays mounted)
+        setTimeout(() => setStep(1), 300);
+    };
+
+    // Helper to map values to Google Form logic
+    const getPaymentValue = (method) => {
+        if (method === 'Cash') return 'Cash (pickup/delivery)';
+        return method;
+    };
+
+    // Helper to map Size to Google Form option (Dozen (12) -> Dozen - 12 ($24))
+    const getSizeValue = (size) => {
+        const map = {
+            "Dozen (12)": "Dozen - 12 ($24)",
+            "Pentadeca (15)": "Pentadeca - 15 ($30)",
+            "Viginti (20)": "Viginti - 20 ($40)",
+            "Triaconta (30)": "Triaconta - 30 ($60)",
+            "Tetraconta (40)": "Tetraconta - 40 ($80)",
+            "Pentaconta (50)": "Pentaconta - 50 ($100)"
+        };
+        return map[size] || size;
+    };
+
+    // Helper to map Add-ons (Bow (on Base) -> Bow (on Base) (+$5))
+    const getAddonValue = (addon) => {
+        // Known addons with prices
+        const priceMap = {
+            "Bow (on Base)": 5,
+            "Letter Centerpiece": 7,
+            "Word Centerpiece": 7,
+            "Ribbon Centerpiece": 7,
+            "3D Butterflies": 3
+        };
+
+        if (priceMap[addon]) {
+            return `${addon} (+$${priceMap[addon]})`;
+        }
+        // Multi-layer wrapping has special text
+        if (addon === "Multi-layer Wrapping") {
+            return "Multi-layer Wrapping (price finalized in order confirmation conversation)";
+        }
+        return addon;
     };
 
     return (
         <div className="checkout-overlay">
             <div className="checkout-modal">
-                <button className="checkout-close" onClick={onClose}>&times;</button>
+                <button className="checkout-close" onClick={handleClose}>&times;</button>
+
+                {/* Hidden Google Form Integration */}
+                <iframe name="hidden_iframe" style={{ display: 'none' }} title="hidden_iframe"></iframe>
+                <form
+                    ref={googleFormRef}
+                    action="https://docs.google.com/forms/d/e/1FAIpQLSfSaKLPWiTtN7DQQDNsww1nfbO5d6jMEvY8rT0JEmhTSMEFIw/formResponse"
+                    method="POST"
+                    target="hidden_iframe"
+                    style={{ display: 'none' }}
+                >
+                    {/* Customer Details */}
+                    <input type="hidden" name="entry.1949433871" value={formData.fullName} />
+                    <input type="hidden" name="entry.1966413202" value={formData.email} />
+                    <input type="hidden" name="entry.1110522930" value={formData.phone} />
+                    <input type="hidden" name="entry.1863203823" value={formData.deliveryType} />
+                    <input type="hidden" name="entry.1761537560" value={formData.date} />
+                    <input type="hidden" name="entry.1895842897" value={getPaymentValue(formData.paymentMethod)} />
+
+                    {/* Cart Item Details (Iterating through cart items to populate fields) */}
+                    {cartItems.map((item, index) => {
+                        const opts = item.selectedOptions || {};
+                        return (
+                            <React.Fragment key={index}>
+                                {/* Size - Mapped */}
+                                {opts.size && <input type="hidden" name="entry.1617117345" value={getSizeValue(opts.size)} />}
+
+                                {/* Wrapping Style */}
+                                {opts.wrappingStyle && <input type="hidden" name="entry.776758289" value={opts.wrappingStyle} />}
+
+                                {/* Wrapping Color */}
+                                {opts.wrappingColor && <input type="hidden" name="entry.558131726" value={opts.wrappingColor} />}
+
+                                {/* Arrays: Render multiple inputs for multi-select checkboxes */}
+                                {opts.flowerTypes?.map((flower, i) => (
+                                    <input key={`flower-${index}-${i}`} type="hidden" name="entry.815724072" value={flower} />
+                                ))}
+
+                                {opts.colors?.map((color, i) => (
+                                    <input key={`color-${index}-${i}`} type="hidden" name="entry.1324502170" value={color} />
+                                ))}
+
+                                {/* Add-ons - Mapped */}
+                                {opts.addOns?.map((addon, i) => (
+                                    <input key={`addon-${index}-${i}`} type="hidden" name="entry.117331266" value={getAddonValue(addon)} />
+                                ))}
+                            </React.Fragment>
+                        );
+                    })}
+                </form>
 
                 {step === 1 ? (
                     <>
@@ -96,6 +201,7 @@ const Checkout = ({ isOpen, onClose }) => {
                                 <select name="paymentMethod" value={formData.paymentMethod} onChange={handleInputChange}>
                                     <option value="Zelle">Zelle</option>
                                     <option value="Apple Pay">Apple Pay</option>
+                                    <option value="CashApp">CashApp</option>
                                     <option value="Cash">Cash (on pickup/delivery)</option>
                                 </select>
                             </div>
@@ -109,7 +215,7 @@ const Checkout = ({ isOpen, onClose }) => {
                         <h3>Order Placed Successfully!</h3>
                         <p>Thank you, {formData.fullName}. We have likely sent you a confirmation email.</p>
                         <p>We will contact you shortly at {formData.phone} to coordinate delivery.</p>
-                        <button className="back-to-shop-btn" onClick={onClose}>Continue Shopping</button>
+                        <button className="back-to-shop-btn" onClick={handleClose}>Continue Shopping</button>
                     </div>
                 )}
             </div>

@@ -7,7 +7,8 @@ const ContactForm = () => {
         contactMethod: '',
         quantity: '',
         quantityOther: '',
-        flowerTypes: [],
+        quantityOther: '',
+        flowerType: '',
         flowerTypeOther: '',
         flowerColors: [],
         multiColorDetails: '',
@@ -40,7 +41,7 @@ const ContactForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('Order Submitted:', formData);
-        alert(`Thank you for ordering from Lush Creations by Ylana! We will contact you within the next 24 hours to confirm your order and send you the deposit information.`);
+        alert(`Thank you for ordering from Lush Creations by Ylana! We will contact you within the next 24 hours to confirm your order and send you the deposit information. Again, Thank you!`);
         // Reset form or redirect logic here
     };
 
@@ -88,14 +89,15 @@ const ContactForm = () => {
                     {/* Flower Types */}
                     <div className="form-group">
                         <label className="form-label">Type of Flower(s) <span className="required">*</span></label>
-                        <div className="checkbox-group">
+                        <div className="radio-group">
                             {['Roses', 'Lilies', 'Babies Breath', 'Hydrangeas'].map(flower => (
-                                <label key={flower} className="checkbox-label">
-                                    <input type="checkbox" value={flower} onChange={(e) => handleCheckboxChange(e, 'flowerTypes')} /> {flower}
+                                <label key={flower} className="radio-label">
+                                    <input type="radio" name="flowerType" value={flower} required onChange={handleInputChange} /> {flower}
                                 </label>
                             ))}
-                            <label className="checkbox-label">
-                                Other: <input type="text" name="flowerTypeOther" className="form-input" style={{ marginLeft: '10px', display: 'inline-block', flex: 1 }} onChange={handleInputChange} />
+                            <label className="radio-label">
+                                <input type="radio" name="flowerType" value="Other" onChange={handleInputChange} /> Other:
+                                <input type="text" name="flowerTypeOther" className="form-input" style={{ marginLeft: '10px', display: 'inline-block', width: '200px' }} onChange={handleInputChange} />
                             </label>
                         </div>
                     </div>
@@ -113,15 +115,15 @@ const ContactForm = () => {
                     </div>
 
                     <div className="form-group">
-                        <label className="form-label">If Multiple Colors, quantity of each (optional)</label>
-                        <textarea name="multiColorDetails" className="form-textarea" rows="2" onChange={handleInputChange}></textarea>
+                        <label className="form-label">If Multiple Colors quantity of each (for roses)</label>
+                        <input type="text" name="multiColorDetails" className="form-input" onChange={handleInputChange} />
                     </div>
 
                     {/* Add-ons */}
                     <div className="form-group">
                         <label className="form-label">Add-ons</label>
                         <div className="checkbox-group">
-                            {['Bow (on Base) (+$5)', 'Letter Centerpiece (+$7)', 'Word Centerpiece (+$7)', 'Ribbon Centerpiece (+$7)', '3D Butterflies (+$3)', 'Multi-layer Wrapping (TBD)'].map(addon => (
+                            {['Bow (on Base) (+$5)', 'Letter Centerpiece (+$7)', 'Word Centerpiece (+$7)', 'Ribbon Centerpiece (+$7)', '3D Butterflies (+$3)', 'Multi-layer Wrapping (price finalized in order confirmation conversation)'].map(addon => (
                                 <label key={addon} className="checkbox-label">
                                     <input type="checkbox" value={addon} onChange={(e) => handleCheckboxChange(e, 'addOns')} /> {addon}
                                 </label>
@@ -135,17 +137,21 @@ const ContactForm = () => {
                     {/* Wrapping */}
                     <div className="row">
                         <div className="form-group">
-                            <label className="form-label">Wrapping Paper Color <span className="required">*</span></label>
-                            <input type="text" name="wrappingColor" placeholder="e.g. White with Gold Rim" className="form-input" required onChange={handleInputChange} />
+                            <label className="form-label">Wrapping Paper Color (i.e. White with Gold Rim) <span className="required">*</span></label>
+                            <input type="text" name="wrappingColor" className="form-input" required onChange={handleInputChange} />
                         </div>
                         <div className="form-group">
                             <label className="form-label">Style of Wrapping <span className="required">*</span></label>
                             <div className="radio-group">
-                                <label className="radio-label">
-                                    <input type="radio" name="wrappingStyle" value="Flat Bouquet" required onChange={handleInputChange} /> Flat Bouquet
+                                <label className="radio-label" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <input type="radio" name="wrappingStyle" value="Flat Bouquet" required onChange={handleInputChange} />
+                                    <span>Flat Bouquet</span>
+                                    <img src="/wrapping-flat.jpg" alt="Flat Bouquet" style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '8px', marginLeft: '10px' }} />
                                 </label>
-                                <label className="radio-label">
-                                    <input type="radio" name="wrappingStyle" value="Classic" onChange={handleInputChange} /> Classic
+                                <label className="radio-label" style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '10px' }}>
+                                    <input type="radio" name="wrappingStyle" value="Classic" onChange={handleInputChange} />
+                                    <span>Classic</span>
+                                    <img src="/wrapping-classic.png" alt="Classic Bouquet" style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '8px', marginLeft: '10px' }} />
                                 </label>
                             </div>
                         </div>
@@ -165,16 +171,16 @@ const ContactForm = () => {
                             </div>
                         </div>
                         <div className="form-group">
-                            <label className="form-label">Preferred Date <span className="required">*</span></label>
+                            <label className="form-label">Preferred Date for Delivery/Pickup <span className="required">*</span></label>
                             <input type="date" name="date" className="form-input" required onChange={handleInputChange} />
                         </div>
                     </div>
 
                     {/* Payment */}
                     <div className="form-group">
-                        <label className="form-label">Payment Method <span className="required">*</span></label>
+                        <label className="form-label">Payment <span className="required">*</span></label>
                         <div className="radio-group" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
-                            {['Cash (Pickup/Delivery)', 'Apple Cash', 'CashApp', 'Zelle'].map(pay => (
+                            {['Cash (pickup/delivery)', 'Apple Cash', 'CashApp', 'Zelle'].map(pay => (
                                 <label key={pay} className="radio-label">
                                     <input type="radio" name="paymentMethod" value={pay} required onChange={handleInputChange} /> {pay}
                                 </label>
@@ -184,7 +190,7 @@ const ContactForm = () => {
 
                     <button type="submit" className="btn-submit">Submit Order</button>
                     <p className="text-center" style={{ fontSize: '0.8rem', marginTop: '1rem', color: '#888' }}>
-                        Bringing your floral vision to life! 🌼✨
+                        Thank you! 🌸
                     </p>
                 </form>
             </div>

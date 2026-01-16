@@ -91,7 +91,6 @@ function App() {
               {/* RealTouchDifference removed as requested */}
               <SocialProof />
               <OurStory />
-              {/* ContactForm removed as requested */}
             </main>
             <Footer />
           </>
