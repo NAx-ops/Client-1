@@ -19,49 +19,49 @@ const ShopCollection = () => {
         {
             id: 2,
             name: "Pink Glitter Senior Night",
-            price: "$85.00",
+            price: "$37.00",
             image: productPinkGlitter,
             tag: "New"
         },
         {
             id: 3,
             name: "Emerald Luxury Initial",
-            price: "$95.00",
+            price: "$47.00",
             image: productGreenGlitter,
             tag: null
         },
         {
             id: 4,
             name: "Radiant Lilies",
-            price: "$65.00",
+            price: "$29.00",
             image: productLilies,
             tag: null
         },
         {
             id: 5,
-            name: "Number 22 Tribute",
-            price: "$120.00",
+            name: "Beautiful 22",
+            price: "$87.00",
             image: productRedPink22,
             tag: "Custom Favorite"
         },
         {
             id: 6,
             name: "Golden Hour Glow",
-            price: "$90.00",
+            price: "$65.00",
             image: productGoldOrange,
             tag: "Trending"
         },
         {
             id: 7,
             name: "Midnight Purple Glitter",
-            price: "$85.00",
+            price: "$30.00",
             image: productPurpleGlitter,
             tag: null
         },
         {
             id: 8,
             name: "Butterfly Garden Mix",
-            price: "$100.00",
+            price: "$43.00",
             image: productButterflyMix,
             tag: "Limited Edition"
         }
