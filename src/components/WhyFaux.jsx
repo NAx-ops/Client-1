@@ -59,8 +59,8 @@ const WhyFaux = () => {
                     </div>
 
                     <div className="carousel-nav">
-                        <button className="nav-btn" onClick={prevSlide}>&larr;</button>
-                        <button className="nav-btn" onClick={nextSlide}>&rarr;</button>
+                        <button className="carousel-nav-btn" onClick={prevSlide}>&larr;</button>
+                        <button className="carousel-nav-btn" onClick={nextSlide}>&rarr;</button>
                     </div>
 
                     <div className="carousel-dots">
