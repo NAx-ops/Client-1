@@ -99,4 +99,17 @@
     .carousel-slide {
         height: 300px;
     }
+
+    .nav-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+        background-color: rgba(0, 0, 0, 0.3);
+        /* improved visibility */
+        border: none;
+    }
+
+    .nav-btn:hover {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
 }

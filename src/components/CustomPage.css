@@ -376,3 +376,33 @@
     transform: none;
     box-shadow: none;
 }
+
+@media (max-width: 600px) {
+    .custom-page {
+        padding-bottom: 8rem; /* More space for stacked footer */
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    .running-total {
+        margin-bottom: 0.5rem;
+    }
+
+    .nav-buttons {
+        width: 100%;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+    .nav-btn {
+        flex: 1;
+        min-width: 0; /* Allow shrinking if needed */
+        font-size: 0.9rem; /* Slightly smaller text */
+        padding: 0.8rem 1rem;
+    }
+}
