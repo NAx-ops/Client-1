@@ -189,10 +189,12 @@ const Checkout = ({ isOpen, onClose }) => {
                                         rows="2"
                                     ></textarea>
                                 )}
+                                <label className="input-label" style={{ display: 'block', marginTop: '1rem', marginBottom: '0.5rem', fontSize: '0.9rem', color: '#666' }}>
+                                    Preferred Date <span style={{ color: '#d9534f' }}>*</span>
+                                </label>
                                 <input
                                     type="date" name="date" required
                                     value={formData.date} onChange={handleInputChange}
-                                    placeholder="Preferred Date"
                                 />
                             </div>
 

@@ -314,10 +314,10 @@ const CustomPage = ({ onNavigateHome, initialData = null }) => {
                                     <button
                                         className={`option-card ${selections.wrappingStyle === 'Flat Bouquet' ? 'selected' : ''}`}
                                         onClick={() => handleOptionSelect('wrappingStyle', 'Flat Bouquet')}
-                                        style={{ flexDirection: 'column', gap: '15px', padding: '15px', height: 'auto' }}
+                                        style={{ flexDirection: 'column', gap: '15px', padding: '15px', height: 'auto', position: 'relative' }}
                                     >
                                         <div className="card-check"></div>
-                                        <span style={{ fontSize: '1.1rem', fontWeight: '500' }}>Flat Bouquet</span>
+                                        <span style={{ fontSize: '1.1rem', fontWeight: '500', padding: '0 1.5rem', display: 'block' }}>Flat Bouquet</span>
                                         <img
                                             src={`${import.meta.env.BASE_URL}wrapping-flat-new.jpg`}
                                             alt="Flat Bouquet"
@@ -334,10 +334,10 @@ const CustomPage = ({ onNavigateHome, initialData = null }) => {
                                     <button
                                         className={`option-card ${selections.wrappingStyle === 'Classic' ? 'selected' : ''}`}
                                         onClick={() => handleOptionSelect('wrappingStyle', 'Classic')}
-                                        style={{ flexDirection: 'column', gap: '15px', padding: '15px', height: 'auto' }}
+                                        style={{ flexDirection: 'column', gap: '15px', padding: '15px', height: 'auto', position: 'relative' }}
                                     >
                                         <div className="card-check"></div>
-                                        <span style={{ fontSize: '1.1rem', fontWeight: '500' }}>Classic</span>
+                                        <span style={{ fontSize: '1.1rem', fontWeight: '500', padding: '0 1.5rem', display: 'block' }}>Classic</span>
                                         <img
                                             src={`${import.meta.env.BASE_URL}wrapping-classic-new.png`}
                                             alt="Classic Bouquet"

@@ -10,12 +10,33 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
+.logo-container {
+    z-index: 1001;
+    text-align: center;
+    padding: 0 1rem;
+}
+
+.logo-img {
+    height: 90px;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+    mix-blend-mode: multiply;
+    cursor: pointer;
+}
+
+/* Nav Menu Container - Desktop default */
+.nav-menu {
+    display: contents;
+    /* Allows children to participate in header flex grid on desktop */
+}
+
+/* Group Styles */
 .nav-group {
     display: flex;
     gap: 2rem;
     align-items: center;
     flex: 1;
-    /* Both sides take equal space */
 }
 
 .nav-group.left {
@@ -26,6 +47,7 @@
     justify-content: flex-end;
 }
 
+/* Links & Buttons */
 .nav-link {
     font-family: var(--font-body);
     font-size: 0.9rem;
@@ -33,6 +55,7 @@
     letter-spacing: 1px;
     color: var(--color-text-main);
     position: relative;
+    cursor: pointer;
 }
 
 .nav-link::after {
@@ -50,22 +73,6 @@
     width: 100%;
 }
 
-.logo-container {
-    /* flex-grow: 1; Removed flex-grow to avoid off-centering */
-    text-align: center;
-    padding: 0 1rem;
-}
-
-.logo-img {
-    height: 90px;
-    /* Adjust based on logo proportions */
-    width: auto;
-    display: block;
-    margin: 0 auto;
-    mix-blend-mode: multiply;
-    /* Makes white background disappear */
-}
-
 .btn-consult {
     background-color: var(--color-secondary);
     color: white;
@@ -80,40 +87,120 @@
 
 .btn-consult:hover {
     background-color: #C5A028;
-    /* Slightly darker gold */
     transform: translateY(-2px);
 }
 
+/* Desktop Cart */
+.desktop-cart-btn {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text-main);
+}
+
+/* Mobile Actions (Hidden on Desktop) */
+.mobile-actions {
+    display: none;
+}
+
+/* -------------------------------------------
+   Mobile Responsive Layout (Hamburger Menu)
+   ------------------------------------------- */
 @media (max-width: 900px) {
     .header {
-        flex-direction: column;
-        gap: 0.5rem;
         padding: 0.8rem 1rem;
-    }
-
-    .nav-group {
-        gap: 0.8rem;
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 100%;
-    }
-
-    .logo-container {
-        order: -1;
-        margin-bottom: 0.2rem;
+        justify-content: space-between;
     }
 
     .logo-img {
         height: 60px;
-        /* Smaller logo on mobile */
+    }
+
+    /* Mobile Actions visible */
+    .mobile-actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .menu-toggle {
+        background: none;
+        border: none;
+        padding: 0.2rem;
+        cursor: pointer;
+        color: var(--color-text-main);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mobile-cart-btn {
+        font-family: var(--font-body);
+        font-size: 0.85rem;
+        font-weight: 600;
+        background: transparent;
+        border: 1px solid #ddd;
+        padding: 0.4rem 0.8rem;
+        border-radius: 4px;
+        color: var(--color-text-main);
+    }
+
+    /* Hide desktop cart button inside menu */
+    .desktop-cart-btn {
+        display: none;
+    }
+
+    /* Nav Menu Overlay */
+    .nav-menu {
+        display: flex;
+        position: fixed;
+        top: 75px;
+        /* Adjust based on header height approx */
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 75px);
+        background-color: var(--color-bg-cream);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 3rem;
+        gap: 2rem;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 999;
+        border-top: 1px solid #eee;
+    }
+
+    .nav-menu.open {
+        transform: translateX(0);
+        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Reset Nav Groups to stack vertically in the menu */
+    .nav-group {
+        flex: 0;
+        flex-direction: column;
+        gap: 2rem;
+        width: 100%;
+    }
+
+    .nav-group.left,
+    .nav-group.right {
+        justify-content: center;
     }
 
     .nav-link {
-        font-size: 0.8rem;
+        font-size: 1.2rem;
+        /* Larger for touch */
     }
 
     .btn-consult {
-        padding: 0.6rem 1rem;
-        font-size: 0.75rem;
+        width: 80%;
+        max-width: 250px;
+        text-align: center;
+        padding: 1rem;
     }
 }
