@@ -7,7 +7,7 @@ const ContactForm = () => {
         contactMethod: '',
         quantity: '',
         quantityOther: '',
-        quantityOther: '',
+
         flowerType: '',
         flowerTypeOther: '',
         flowerColors: [],

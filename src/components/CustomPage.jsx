@@ -319,7 +319,7 @@ const CustomPage = ({ onNavigateHome, initialData = null }) => {
                                         <div className="card-check"></div>
                                         <span style={{ fontSize: '1.1rem', fontWeight: '500' }}>Flat Bouquet</span>
                                         <img
-                                            src="/wrapping-flat-new.jpg"
+                                            src={`${import.meta.env.BASE_URL}wrapping-flat-new.jpg`}
                                             alt="Flat Bouquet"
                                             style={{
                                                 width: '100%',
@@ -339,7 +339,7 @@ const CustomPage = ({ onNavigateHome, initialData = null }) => {
                                         <div className="card-check"></div>
                                         <span style={{ fontSize: '1.1rem', fontWeight: '500' }}>Classic</span>
                                         <img
-                                            src="/wrapping-classic-new.png"
+                                            src={`${import.meta.env.BASE_URL}wrapping-classic-new.png`}
                                             alt="Classic Bouquet"
                                             style={{
                                                 width: '100%',

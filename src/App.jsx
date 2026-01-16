@@ -14,6 +14,7 @@ import { CartProvider } from './context/CartContext';
 import CartDrawer from './components/CartDrawer';
 import CustomPage from './components/CustomPage'; // Using the Standalone Page
 import Checkout from './components/Checkout';
+import ErrorBoundary from './components/ErrorBoundary';
 
 function App() {
   const [view, setView] = useState('home'); // 'home' or 'custom'
@@ -60,57 +61,59 @@ function App() {
 
   return (
     <CartProvider>
-      <div className="app">
-        {view === 'home' && (
-          <>
-            {/* Pass navigateToHome for Logo/Link clicks, and navigateToCustom for Order button */}
-            <Header onNavigateHome={navigateToHome} onNavigateCustom={navigateToCustom} />
-            <main>
-              <Hero />
-              <WhyFaux />
+      <ErrorBoundary>
+        <div className="app">
+          {view === 'home' && (
+            <>
+              {/* Pass navigateToHome for Logo/Link clicks, and navigateToCustom for Order button */}
+              <Header onNavigateHome={navigateToHome} onNavigateCustom={navigateToCustom} />
+              <main>
+                <Hero />
+                <WhyFaux />
 
-              <div style={{ textAlign: 'center', padding: '2rem', backgroundColor: '#fafafa' }}>
-                <h2>Want something unique?</h2>
-                <button
-                  onClick={navigateToCustom}
-                  style={{
-                    marginTop: '1rem',
-                    padding: '1rem 2rem',
-                    backgroundColor: '#1a1a1a',
-                    color: '#fff',
-                    border: 'none',
-                    fontSize: '1rem',
-                    cursor: 'pointer'
-                  }}
-                >
-                  Build Your Own Arrangement
-                </button>
-              </div>
+                <div style={{ textAlign: 'center', padding: '2rem', backgroundColor: '#fafafa' }}>
+                  <h2>Want something unique?</h2>
+                  <button
+                    onClick={navigateToCustom}
+                    style={{
+                      marginTop: '1rem',
+                      padding: '1rem 2rem',
+                      backgroundColor: '#1a1a1a',
+                      color: '#fff',
+                      border: 'none',
+                      fontSize: '1rem',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Build Your Own Arrangement
+                  </button>
+                </div>
 
-              <ShopCollection />
-              {/* RealTouchDifference removed as requested */}
-              <SocialProof />
-              <OurStory />
-            </main>
-            <Footer />
-          </>
-        )}
+                <ShopCollection />
+                {/* RealTouchDifference removed as requested */}
+                <SocialProof />
+                <OurStory />
+              </main>
+              <Footer />
+            </>
+          )}
 
-        {view === 'custom' && (
-          <CustomPage
-            onNavigateHome={navigateToHome}
-            initialData={editingItem}
+          {view === 'custom' && (
+            <CustomPage
+              onNavigateHome={navigateToHome}
+              initialData={editingItem}
+            />
+          )}
+
+          {/* Cart Drawer is always available (unless we wanted to hide it on custom page, but usually fine) */}
+          <CartDrawer onEditItem={handleEditItem} onCheckout={handleCheckout} />
+
+          <Checkout
+            isOpen={isCheckoutOpen}
+            onClose={() => setIsCheckoutOpen(false)}
           />
-        )}
-
-        {/* Cart Drawer is always available (unless we wanted to hide it on custom page, but usually fine) */}
-        <CartDrawer onEditItem={handleEditItem} onCheckout={handleCheckout} />
-
-        <Checkout
-          isOpen={isCheckoutOpen}
-          onClose={() => setIsCheckoutOpen(false)}
-        />
-      </div>
+        </div>
+      </ErrorBoundary>
     </CartProvider>
   );
 }
