@@ -103,15 +103,18 @@
     .nav-btn {
         width: 35px !important;
         height: 35px !important;
-        min-width: 35px;
+        min-width: 35px !important;
+        max-width: 35px !important;
+        flex: 0 0 auto;
+        /* Prevent stretching */
         border-radius: 50% !important;
         font-size: 1rem;
-        background-color: rgba(0, 0, 0, 0.2);
-        /* Subtle background */
-        border: 1px solid rgba(255, 255, 255, 0.5);
+        background-color: rgba(0, 0, 0, 0.6);
+        /* Slightly darker to force update */
+        border: 1px solid rgba(255, 255, 255, 0.8);
         padding: 0;
-        /* Reset padding */
-        display: flex;
+        margin: 0;
+        display: flex !important;
         align-items: center;
         justify-content: center;
     }
