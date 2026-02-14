@@ -86,6 +86,12 @@ const Checkout = ({ isOpen, onClose }) => {
         return addon;
     };
 
+    // Determine order type: Collection only vs. Custom/Mixed
+    const isCollectionOrder = cartItems.length > 0 && cartItems.every(item => !item.isCustom);
+
+    const collectionFormAction = "https://docs.google.com/forms/d/e/1FAIpQLSfFiR6Y5JGggIkE5vqyuxflsdUD_RnDiSi_V147vXQFw4ADWw/formResponse";
+    const customFormAction = "https://docs.google.com/forms/d/e/1FAIpQLSfSaKLPWiTtN7DQQDNsww1nfbO5d6jMEvY8rT0JEmhTSMEFIw/formResponse";
+
     return (
         <div className="checkout-overlay">
             <div className="checkout-modal">
@@ -95,12 +101,12 @@ const Checkout = ({ isOpen, onClose }) => {
                 <iframe name="hidden_iframe" style={{ display: 'none' }} title="hidden_iframe"></iframe>
                 <form
                     ref={googleFormRef}
-                    action="https://docs.google.com/forms/d/e/1FAIpQLSfSaKLPWiTtN7DQQDNsww1nfbO5d6jMEvY8rT0JEmhTSMEFIw/formResponse"
+                    action={isCollectionOrder ? collectionFormAction : customFormAction}
                     method="POST"
                     target="hidden_iframe"
                     style={{ display: 'none' }}
                 >
-                    {/* Customer Details */}
+                    {/* Customer Details - Common Fields */}
                     <input type="hidden" name="entry.1949433871" value={formData.fullName} />
                     <input type="hidden" name="entry.1966413202" value={formData.email} />
                     <input type="hidden" name="entry.1110522930" value={formData.phone} />
@@ -108,8 +114,17 @@ const Checkout = ({ isOpen, onClose }) => {
                     <input type="hidden" name="entry.1761537560" value={formData.date} />
                     <input type="hidden" name="entry.1895842897" value={getPaymentValue(formData.paymentMethod)} />
 
-                    {/* Cart Item Details (Iterating through cart items to populate fields) */}
-                    {cartItems.map((item, index) => {
+                    {/* Collection Order Specifics */}
+                    {isCollectionOrder && (
+                        <input
+                            type="hidden"
+                            name="entry.2046504845"
+                            value={cartItems.map(i => `${i.name} (x${i.quantity || 1})`).join(", ")}
+                        />
+                    )}
+
+                    {/* Custom Order Specifics - Existing Mapping */}
+                    {!isCollectionOrder && cartItems.map((item, index) => {
                         const opts = item.selectedOptions || {};
                         return (
                             <React.Fragment key={index}>
