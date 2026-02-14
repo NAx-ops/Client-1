@@ -112,7 +112,12 @@ const Checkout = ({ isOpen, onClose }) => {
                     <input type="hidden" name="entry.1110522930" value={formData.phone} />
                     <input type="hidden" name="entry.1863203823" value={formData.deliveryType} />
                     <input type="hidden" name="entry.1761537560" value={formData.date} />
-                    <input type="hidden" name="entry.1895842897" value={getPaymentValue(formData.paymentMethod)} />
+                    <input type="hidden" name="entry.1895842897" value={isCollectionOrder && formData.paymentMethod === 'Apple Pay' ? 'Apple Cash' : getPaymentValue(formData.paymentMethod)} />
+
+                    {/* Delivery Address - Only for Collections Form */}
+                    {formData.deliveryType === 'Delivery' && isCollectionOrder && (
+                        <input type="hidden" name="entry.444624727" value={formData.address} />
+                    )}
 
                     {/* Collection Order Specifics */}
                     {isCollectionOrder && (
