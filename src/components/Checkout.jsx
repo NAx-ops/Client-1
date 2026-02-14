@@ -112,7 +112,7 @@ const Checkout = ({ isOpen, onClose }) => {
                     <input type="hidden" name="entry.1110522930" value={formData.phone} />
                     <input type="hidden" name="entry.1863203823" value={formData.deliveryType} />
                     <input type="hidden" name="entry.1761537560" value={formData.date} />
-                    <input type="hidden" name="entry.1895842897" value={isCollectionOrder && formData.paymentMethod === 'Apple Pay' ? 'Apple Cash' : getPaymentValue(formData.paymentMethod)} />
+                    <input type="hidden" name="entry.1895842897" value={formData.paymentMethod === 'Apple Pay' ? 'Apple Cash' : getPaymentValue(formData.paymentMethod)} />
 
                     {/* Delivery Address - Only for Collections Form */}
                     {formData.deliveryType === 'Delivery' && isCollectionOrder && (
@@ -133,6 +133,9 @@ const Checkout = ({ isOpen, onClose }) => {
                         const opts = item.selectedOptions || {};
                         return (
                             <React.Fragment key={index}>
+                                {/* Collection/Item Name */}
+                                <input type="hidden" name="entry.2046504845" value={item.name} />
+
                                 {/* Size - Mapped */}
                                 {opts.size && <input type="hidden" name="entry.1617117345" value={getSizeValue(opts.size)} />}
 
